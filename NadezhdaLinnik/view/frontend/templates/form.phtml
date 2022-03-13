@@ -1,0 +1,16 @@
+<?php
+/**
+ * @var Magento\Framework\View\Element\Template $block
+ */
+$_className = $block->getCssClass();
+?>
+<form class="<?= $block->escapeHtmlAttr($_className) ?>">
+    <div>
+        <input type="text" name="sku" />
+    </div>
+    <div>
+        <input type="number" name="qty" />
+    </div>
+    <?= $block->getChildHtml('Amasty_Linnik.additional') ?>
+    <button type="submit">Submit</button>
+</form>

@@ -1,5 +1,5 @@
 {
-    "name": "amasty/user-name",
+    "name": "amasty/nadezhda-linnik",
     "description": "Module for learning Magento 2",
     "type": "magento2-module",
     "version": "1.0.0",
@@ -11,7 +11,7 @@
             "registration.php"
         ],
         "psr-4": {
-            "Amasty\\UserName\\": ""
+            "Amasty\\NadezhdaLinnik\\": ""
         }
     }
 }

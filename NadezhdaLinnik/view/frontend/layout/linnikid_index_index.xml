@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Amasty_NadezhdaLinnik::css/styles.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <referenceContainer name="content" htmlTag="div" htmlClass="container-add-form" >
+            <container name="Amasty_Linnik.main">
+                <block name="Amasty_Linnik.hello"
+                       class="Amasty\NadezhdaLinnik\Block\Hello"
+                       template="Amasty_NadezhdaLinnik::hello.phtml"/>
+                <block name="Amasty_Linnik.form"
+                       template="Amasty_NadezhdaLinnik::form.phtml">
+                    <arguments>
+                        <argument name="css_class" xsi:type="string">form my-form</argument>
+                    </arguments>
+                    <block name="Amasty_Linnik.additional" template="Amasty_NadezhdaLinnik::additional.phtml" />
+                </block>
+            </container>
+
+        </referenceContainer>
+    </body>
+</page>
