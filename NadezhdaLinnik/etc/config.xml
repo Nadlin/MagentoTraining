@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <linnik_config>
+            <general>
+                <enabled>1</enabled>
+                <greeting_text>Hello</greeting_text>
+                <show_qty>1</show_qty>
+                <default_qty>1</default_qty>
+            </general>
+        </linnik_config>
+    </default>
+</config>
