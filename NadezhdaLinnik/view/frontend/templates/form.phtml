@@ -1,16 +1,21 @@
 <?php
 /**
- * @var Magento\Framework\View\Element\Template $block
+ * @var Amasty\NadezhdaLinnik\Block\Form $block
  */
 $_className = $block->getCssClass();
+$isQtyAllowed = $block->isQtyFieldAllowed();
+$defaultQtyVal = $block->getDefaultQty();
 ?>
-<form class="<?= $block->escapeHtmlAttr($_className) ?>">
+<form class="<?= $block->escapeHtmlAttr($_className) ?>" method="POST" action=<?= $block->getUrl('linnik/cart/add'); ?> data-mage-init='{"validation": {}}'>
     <div>
-        <input type="text" name="sku" />
+        <input type="text" name="sku" data-validate="{required:true}" />
     </div>
-    <div>
-        <input type="number" name="qty" />
-    </div>
+    <?php if ($isQtyAllowed) : ?>
+        <div>
+            <input type="text" name="qty" value="<?= $defaultQtyVal ?>" data-validate="{required: true, 'validate-number': true, 'validate-greater-than-zero': true}" />
+        </div>
+    <?php endif; ?>
+
     <?= $block->getChildHtml('Amasty_Linnik.additional') ?>
     <button type="submit">Submit</button>
 </form>

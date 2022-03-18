@@ -5,7 +5,7 @@ namespace Amasty\NadezhdaLinnik\Block;
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 
-class Hello extends Template
+class Form extends Template
 {
     /**
      * @var ScopeConfigInterface
@@ -21,13 +21,13 @@ class Hello extends Template
         parent::__construct($context, $data);
     }
 
-    public function getGreeting()
+    public function isQtyFieldAllowed()
     {
-        return 'Hello World';
+        return $this->scopeConfig->isSetFlag('linnik_config/general/show_qty');
     }
 
-    public function getGreetingFromAdmin()
+    public function getDefaultQty()
     {
-        return $this->scopeConfig->getValue('linnik_config/general/greeting_text');
+        return $this->scopeConfig->getValue('linnik_config/general/default_qty') ?: '';
     }
 }
