@@ -6,3 +6,42 @@
     max-width: 300px;
     margin: 10px 0;
 }
+
+.result-list {
+    border: 1px solid silver;
+    max-width: 300px;
+    display: none;
+}
+
+.result-list.-visible {
+    display: block;
+}
+
+.search-item {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid silver;
+    padding: 9px;
+}
+
+.search-item .sku {
+    flex-basis: 110px;
+}
+
+.search-item .name {
+    text-align: right;
+}
+
+.search-item:last-child {
+    border: none;
+}
+
+.timer-wrap {
+    margin-bottom: 30px;
+}
+
+
+
+
+
+

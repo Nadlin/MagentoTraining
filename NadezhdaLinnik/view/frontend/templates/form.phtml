@@ -7,8 +7,16 @@ $isQtyAllowed = $block->isQtyFieldAllowed();
 $defaultQtyVal = $block->getDefaultQty();
 ?>
 <form class="<?= $block->escapeHtmlAttr($_className) ?>" method="POST" action=<?= $block->getUrl('linnik/cart/add'); ?> data-mage-init='{"validation": {}}'>
-    <div>
-        <input type="text" name="sku" data-validate="{required:true}" />
+    <div data-bind="scope: 'autocomplete-s'">
+        <input type="text" name="sku" data-bind="textInput: searchText" data-validate="{required:true}" autocomplete="off" />
+            <!-- ko if: searchResult().length -->
+                <div class="result-list" data-bind="foreach: searchResult, css: {'-visible': searchResult().length}">
+                    <div class="search-item">
+                        <span class="sku" data-bind="text: sku"></span>
+                        <span class="name" data-bind="text: name"></span>
+                    </div>
+                </div>
+            <!-- /ko -->
     </div>
     <?php if ($isQtyAllowed) : ?>
         <div>
@@ -19,3 +27,16 @@ $defaultQtyVal = $block->getDefaultQty();
     <?= $block->getChildHtml('Amasty_Linnik.additional') ?>
     <button type="submit">Submit</button>
 </form>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "autocomplete-s": {
+                        "component": "Amasty_NadezhdaLinnik/js/sku-autocomplete"
+                    }
+                }
+            }
+        }
+    }
+</script>
