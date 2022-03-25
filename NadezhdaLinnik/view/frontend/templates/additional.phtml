@@ -1,1 +1,18 @@
-<h4>Здесь будет таймер, который я сделаю в другом задании</h4>
+<div class="timer-wrap" data-bind="scope: 'myTimer'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "myTimer": {
+                        "component": "Amasty_NadezhdaLinnik/js/timer",
+                        "template": "Amasty_NadezhdaLinnik/timer"
+                    }
+                }
+            }
+        }
+    }
+</script>
