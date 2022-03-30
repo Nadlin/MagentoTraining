@@ -7,6 +7,7 @@ use Magento\Framework\App\Action\Context;
 use Magento\Framework\App\Action\HttpPostActionInterface as HttpPostActionInterface;
 use Magento\Checkout\Model\Session;
 use Magento\Catalog\Api\ProductRepositoryInterface;
+use Magento\Framework\Event\ManagerInterface;
 
 class Add extends Action implements HttpPostActionInterface
 {
@@ -20,13 +21,20 @@ class Add extends Action implements HttpPostActionInterface
      */
     private $productRepository;
 
+    /**
+     * @var ManagerInterface
+     */
+    private $eventManager;
+
     public function __construct(
         Context $context,
         Session $checkoutSession,
-        ProductRepositoryInterface $productRepository
+        ProductRepositoryInterface $productRepository,
+        ManagerInterface $eventManager
     ) {
         $this->checkoutSession = $checkoutSession;
         $this->productRepository = $productRepository;
+        $this->eventManager = $eventManager;
         parent::__construct($context);
     }
 
@@ -71,6 +79,10 @@ class Add extends Action implements HttpPostActionInterface
                     } else {
                         $quote->addProduct($product, $requestedProductQty);
                         $quote->save();
+                        $this->eventManager->dispatch(
+                            'linnik_add_to_cart',
+                            ['sku' => $requestedProductSku]
+                        );
                         $this->messageManager->addSuccessMessage(
                             __('You successfully added \'%1\' to your shopping cart', $productName)
                         );

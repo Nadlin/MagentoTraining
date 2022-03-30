@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- расскомментировать, чтобы изменить action на checkout/cart/add вместо linnik/cart/add -->
+    <!--<type name="Amasty\NadezhdaLinnik\Block\Form">
+        <plugin name="Amasty_SecondLinnik::ChangeFormAction"
+                type="Amasty\SecondLinnik\Plugin\ChangeFormAction" />
+    </type>-->
+    <type name="Magento\Checkout\Controller\Cart\Add">
+        <plugin name="Amasty_SecondLinnik::ChangeExecute"
+                type="Amasty\SecondLinnik\Plugin\ChangeExecute" />
+    </type>
+</config>
