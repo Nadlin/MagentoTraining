@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="Amasty_SecondLinnik" translate="label" sortOrder="11">
+            <label>Amasty SecondLinnik Module</label>
+        </tab>
+        <section id="secondlinnik_config" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>SecondLinnik Module config</label>
+            <tab>Amasty_SecondLinnik</tab>
+            <resource>Amasty_SecondLinnik::config</resource>
+            <group id="general" translate="label" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Configuration</label>
+                <field id="promo_sku" type="text" translate="label comment" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Promo SKU</label>
+                    <comment>Only one sku for promo is allowed</comment>
+                </field>
+                <field id="for_sku" type="text" translate="label comment" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>For SKU</label>
+                    <comment>Use comma to separate sku from each other</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

@@ -30,4 +30,9 @@ class Form extends Template
     {
         return $this->scopeConfig->getValue('linnik_config/general/default_qty') ?: '';
     }
+
+    public function getFormAction()
+    {
+        return $this->getUrl('linnik/cart/add');
+    }
 }

@@ -6,7 +6,7 @@ $_className = $block->getCssClass();
 $isQtyAllowed = $block->isQtyFieldAllowed();
 $defaultQtyVal = $block->getDefaultQty();
 ?>
-<form class="<?= $block->escapeHtmlAttr($_className) ?>" method="POST" action=<?= $block->getUrl('linnik/cart/add'); ?> data-mage-init='{"validation": {}}'>
+<form class="<?= $block->escapeHtmlAttr($_className) ?>" method="POST" action="<?= $block->escapeUrl($block->getFormAction()) ?>" data-mage-init='{"validation": {}}'>
     <div data-bind="scope: 'autocomplete-s'">
         <input type="text" name="sku" data-bind="textInput: searchText" data-validate="{required:true}" autocomplete="off" />
             <!-- ko if: searchResult().length -->
