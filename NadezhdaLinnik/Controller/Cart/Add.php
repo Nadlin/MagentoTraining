@@ -26,15 +26,22 @@ class Add extends Action implements HttpPostActionInterface
      */
     private $eventManager;
 
+    /**
+     * @var \Amasty\NadezhdaLinnik\Model\ProductBlackListRepository
+     */
+    private $blackListRepository;
+
     public function __construct(
         Context $context,
         Session $checkoutSession,
         ProductRepositoryInterface $productRepository,
-        ManagerInterface $eventManager
+        ManagerInterface $eventManager,
+        \Amasty\NadezhdaLinnik\Model\ProductBlackListRepository $blackListRepository
     ) {
         $this->checkoutSession = $checkoutSession;
         $this->productRepository = $productRepository;
         $this->eventManager = $eventManager;
+        $this->blackListRepository = $blackListRepository;
         parent::__construct($context);
     }
 
@@ -77,15 +84,41 @@ class Add extends Action implements HttpPostActionInterface
                             __('There are no enough products \'%1\'', $productName)
                         );
                     } else {
-                        $quote->addProduct($product, $requestedProductQty);
-                        $quote->save();
-                        $this->eventManager->dispatch(
-                            'linnik_add_to_cart',
-                            ['sku' => $requestedProductSku]
-                        );
-                        $this->messageManager->addSuccessMessage(
-                            __('You successfully added \'%1\' to your shopping cart', $productName)
-                        );
+                        $blackListItem = $this->blackListRepository->getBySku($requestedProductSku);
+
+                        if (count($blackListItem->getData())) {
+                            $blackListQty = $blackListItem->getQty();
+                            $cartItems = $quote->getItems();
+                            if (count($cartItems)) {
+                                foreach ($cartItems as $item) {
+                                    if ($item->getSku() == $requestedProductSku) {
+                                        $inCartQty = $item->getQty();
+                                        break;
+                                    }
+                                }
+                            }
+                            $availableQty = isset($inCartQty) ? $blackListQty - $inCartQty : $blackListQty;
+                            if ($requestedProductQty <= $availableQty) {
+                                $this->addToCart($quote, $product, $requestedProductSku, $requestedProductQty);
+                                $this->messageManager->addSuccessMessage(
+                                    __('You successfully added \'%1\' to your shopping cart', $productName)
+                                );
+                            } else if ($availableQty) {
+                                $this->addToCart($quote, $product, $requestedProductSku, $availableQty);
+                                $this->messageManager->addErrorMessage(
+                                    __('Sorry, you\'ve requested %1 items but only %2 item(s) of \'%3\' was(were) added to your shopping cart because only %2 item(s) is(are) available.', $requestedProductQty, $availableQty, $productName)
+                                );
+                            } else {
+                                $this->messageManager->addErrorMessage(
+                                    __('Sorry, \'%1\' is not available.', $productName)
+                                );
+                            }
+                        } else {
+                            $this->addToCart($quote, $product, $requestedProductSku, $requestedProductQty);
+                            $this->messageManager->addSuccessMessage(
+                                __('You successfully added \'%1\' to your shopping cart', $productName)
+                            );
+                        }
                     }
                 } else {
                     $this->messageManager->addErrorMessage(
@@ -99,5 +132,15 @@ class Add extends Action implements HttpPostActionInterface
             }
         }
         return $this->resultRedirectFactory->create()->setPath('linnik');
+    }
+
+    public function addToCart($quote, $product, $sku, $qty)
+    {
+        $quote->addProduct($product, $qty);
+        $quote->save();
+        $this->eventManager->dispatch(
+            'linnik_add_to_cart',
+            ['sku' => $sku]
+        );
     }
 }
