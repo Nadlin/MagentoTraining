@@ -8,6 +8,11 @@
                 <show_qty>1</show_qty>
                 <default_qty>1</default_qty>
             </general>
+            <cron>
+                <schedule>* * * * *</schedule>
+                <email></email>
+                <email_template>linnik_config_cron_email_template</email_template>
+            </cron>
         </linnik_config>
     </default>
 </config>

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template
+        id="linnik_config_cron_email_template"
+        label="Amasty Linnik Template"
+        file="blacklist_notification.html"
+        type="html"
+        module="Amasty_NadezhdaLinnik"
+        area="frontend"/>
+</config>
