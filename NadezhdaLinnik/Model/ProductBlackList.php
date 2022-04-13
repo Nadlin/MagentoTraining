@@ -10,6 +10,7 @@ use Magento\Framework\Model\AbstractModel;
  * @method int getId()
  * @method string getSku()
  * @method int getQty()
+ * @method int getEmailBody()
  */
 class ProductBlackList extends AbstractModel
 {
