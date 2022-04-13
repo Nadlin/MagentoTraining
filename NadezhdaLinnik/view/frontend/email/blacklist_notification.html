@@ -1,13 +1,19 @@
 <!--@subject {{trans "Amasty NadezhdaLinnik Blacklist"}} @-->
 <!--@vars
 {
+"var blackListItem": "Black List Item"
 "var qty":"Qty",
-"var product":"Product"
+"var sku":"Product SKU"
 }
 @-->
 {{template config_path="design/email/header_template"}}
 
-<p>{{trans "Hello from BlackList"}}</p>
+<h2>{{trans "Hello from BlackList"}}</h2>
+<p>{{trans "Quantity %product_qty for product with sku %product_sku" product_qty=$qty product_sku=$sku}}</p>
+
+
+<p>{{var blackListItem.qty}}</p>
+<p>{{var blackListItem.sku}}</p>
 
 
 {{template config_path="design/email/footer_template"}}

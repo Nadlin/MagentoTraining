@@ -10,7 +10,7 @@
             </general>
             <cron>
                 <schedule>* * * * *</schedule>
-                <email></email>
+                <email>nadezhda.linnik@ewave.com</email>
                 <email_template>linnik_config_cron_email_template</email_template>
             </cron>
         </linnik_config>

@@ -34,4 +34,11 @@ class ProductBlackListRepository
 
         return $blackListItem;
     }
+
+    public function addEmailBody($blackListItem, $emailBody)
+    {
+        /** @var \Amasty\NadezhdaLinnik\Model\ProductBlackList $blackListItem */
+        $blackListItem->setEmailBody($emailBody);
+        $this->blackListResource->save($blackListItem);
+    }
 }
